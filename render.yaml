@@ -1,0 +1,26 @@
+﻿services:
+  - type: worker
+    name: teacher-attendance-bot
+    runtime: python
+    plan: starter
+    region: singapore
+    buildCommand: pip install -r requirements-render.txt
+    startCommand: python run.py
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: ADMIN_IDS
+        sync: false
+      - key: TIMEZONE
+        value: Asia/Phnom_Penh
+      - key: REMINDER_HOUR
+        value: "7"
+      - key: REMINDER_MINUTE
+        value: "0"
+      - key: DB_PATH
+        value: /opt/render/project/src/data/attendance.db
+    disk:
+      name: teacher-attendance-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1
+
